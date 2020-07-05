@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .jump {
+            width: 150px;
+            height: 70px;
+            background-color: lightblue;
+
+        }
+
+        body {
+            /* overflow: hidden; */
+        }
+
+
+        canvas {
+            transform: rotate(180deg) rotateY(180deg);
+            overflow: auto;
+            background-color: lightgoldenrodyellow;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- <div class="jump"></div> -->
+    <canvas></canvas>
+
+
+    <script>
+        const canvas = document.querySelector('canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight * 4;
+        window.scrollTo(0, canvas.height);
+        const { top: canvasTop, bottom } = canvas.getBoundingClientRect();
+
+        const colorWheel = '0123456789abcedf';
+        const randomStroke = () => Math.floor(Math.random() * colorWheel.length);
+
+
+
+
+
+        const c = canvas.getContext('2d');
+
+
+
+        c.fillRect(600, 800, 400, 50);
+        c.fillRect(100, 200, 300, 50);
+
+        canvas.addEventListener('mousemove', function (e) {
+            console.log(e.pageY, pageYOffset)
+            if (e.pageY <= pageYOffset) {
+                let toTop = 1;
+                let toTopVelocity = 4
+                function moveTop() {
+                    console.log(canvas.height - toTop)
+                    window.scrollTo(0, (canvas.height - window.innerHeight) - toTop, {
+                        behaviour: 'smooth'
+                    });
+                    toTop += toTopVelocity;
+                    requestAnimationFrame(moveTop)
+                }
+
+                moveTop()
+            }
+        }, {
+            once: true
+        })
+
+
+    </script>
+
+</body>
+
+</html>
